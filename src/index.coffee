@@ -10,7 +10,10 @@ export default (max=os.cpus().length*2)=>
         _ = =>
           ++n
           resolve()
-          await func.apply func, args
+          try
+            resolve await func.apply func, args
+          catch err
+            reject err
           --n
           todo.pop()?()
 
