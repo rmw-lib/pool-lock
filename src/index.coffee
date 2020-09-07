@@ -4,8 +4,10 @@ import os from 'os'
 export default (_=undefined,max=os.cpus().length*2)=>
   if typeof(_) == "number"
     max = _
-    _ = undefined
-  _ = _ or []
+    _ = []
+  else
+    _ = _ or []
+
   n = 0
   todo = []
   (func, ...args)=>
