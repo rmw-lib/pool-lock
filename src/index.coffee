@@ -1,13 +1,7 @@
 import os from 'os'
 
 
-export default (_=undefined,max=os.cpus().length*2)=>
-  if typeof(_) == "number"
-    max = _
-    _ = []
-  else
-    _ = _ or []
-
+export default (max=os.cpus().length*2)=>
   n = 0
   todo = []
   (func, ...args)=>
@@ -17,13 +11,10 @@ export default (_=undefined,max=os.cpus().length*2)=>
           ++n
           resolve()
           try
-            r = await func.apply(func, args)
-          catch err
-            _[1]?(err)
+            await func.apply(func, args)
           finally
             --n
             todo.pop()?()
-          _[0]? r
 
         if n < max
           _()
