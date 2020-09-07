@@ -1,6 +1,6 @@
 {
   "name": "@rmw/lock",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "repository": "https://github.com/rmw-lib/rmw-lock",
   "author": "i@rmw.link",
   "license": "MulanPSL-2.0",
