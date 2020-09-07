@@ -9,11 +9,9 @@ export default (max=os.cpus().length*2)=>
       return new Promise((resolve, reject)=>
         _ = =>
           ++n
-          resolve()
-          try
-            resolve await func.apply func, args
-          catch err
-            reject err
+          resolve(
+            func.apply func, args
+          )
           --n
           todo.pop()?()
 
