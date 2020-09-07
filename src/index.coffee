@@ -15,7 +15,7 @@ export default (_=undefined,max=os.cpus().length*2)=>
           ++n
           resolve()
           try
-            await func.apply(func, args).then(_)
+            await func.apply(func, args).then(... _)
           finally
             --n
             todo.pop()?()
