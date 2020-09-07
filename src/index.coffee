@@ -1,7 +1,8 @@
 import os from 'os'
 
 
-export default (max=os.cpus().length*2)=>
+export default (_=undefined,max=os.cpus().length*2)=>
+  _ = _ or []
   n = 0
   todo = []
   (func, ...args)=>
@@ -9,11 +10,12 @@ export default (max=os.cpus().length*2)=>
       return new Promise((resolve, reject)=>
         _ = =>
           ++n
-          resolve(
-            func.apply func, args
-          )
-          --n
-          todo.pop()?()
+          resolve()
+          try
+            await func.apply(func, args).then(_)
+          finally
+            --n
+            todo.pop()?()
 
         if n < max
           _()
