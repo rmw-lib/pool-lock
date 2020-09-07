@@ -17,10 +17,13 @@ export default (_=undefined,max=os.cpus().length*2)=>
           ++n
           resolve()
           try
-            await (func.apply(func, args).then(... _))
+            r = await func.apply(func, args)
+          catch err
+            _[1]?(err)
           finally
             --n
             todo.pop()?()
+          _[0]? r
 
         if n < max
           _()
