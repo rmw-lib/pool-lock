@@ -4,6 +4,7 @@ import os from 'os'
 export default (max=os.cpus().length*2)=>
   n = 0
   todo = []
+  alldone_resolve = undefined
   (func, ...args)=>
     if func
       return new Promise((resolve, reject)=>
@@ -13,8 +14,10 @@ export default (max=os.cpus().length*2)=>
           try
             await func(...args)
           finally
-            todo.shift()?()
+            await todo.shift()?()
             --n
+            if n == 0
+              alldone_resolve?()
 
         if n < max
           _()
@@ -22,4 +25,12 @@ export default (max=os.cpus().length*2)=>
           todo.push _
         return
       )
-    Promise.all todo
+    await Promise.all todo
+    if n == 0
+      return
+    alldone = new Promise(
+      (resolve)=>
+        alldone_resolve = resolve()
+    )
+    await alldone()
+    return
