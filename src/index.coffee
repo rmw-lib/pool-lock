@@ -28,9 +28,8 @@ export default (max=os.cpus().length*2)=>
     await Promise.all todo
     if n == 0
       return
-    alldone = new Promise(
+    await new Promise(
       (resolve)=>
-        alldone_resolve = resolve()
+        alldone_resolve = resolve
     )
-    await alldone()
     return
