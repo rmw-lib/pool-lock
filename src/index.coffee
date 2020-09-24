@@ -11,7 +11,7 @@ export default (max=os.cpus().length*2)=>
           ++n
           resolve()
           try
-            await func.apply(func, args)
+            await func(...args)
           finally
             --n
             todo.pop()?()
