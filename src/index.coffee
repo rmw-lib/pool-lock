@@ -13,8 +13,8 @@ export default (max=os.cpus().length*2)=>
           try
             await func(...args)
           finally
-            --n
             todo.shift()?()
+            --n
 
         if n < max
           _()
